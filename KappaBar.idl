@@ -1,0 +1,18 @@
+// KappaBar.idl : IDL source for KappaBar
+//
+
+// This file will be processed by the MIDL tool to
+// produce the type library (KappaBar.tlb) and marshalling code.
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	uuid(5a79b3c9-dd2b-453d-9a24-e33d82c56570),
+	version(1.0),
+]
+library KappaBarLib
+{
+	importlib("stdole2.tlb");
+};
+
