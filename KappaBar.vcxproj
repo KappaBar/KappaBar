@@ -258,6 +258,7 @@
   <ItemGroup>
     <None Include=".gitignore" />
     <None Include="KappaBar.rgs" />
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="KappaBar.idl" />

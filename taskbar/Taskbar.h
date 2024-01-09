@@ -2,7 +2,7 @@
 
 #include "pch.h"
 
-class Taskbar
+class CTaskbar
 {
 
 };
