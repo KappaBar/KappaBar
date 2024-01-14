@@ -9,8 +9,21 @@ LRESULT CTestWindow::OnPaint(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHan
 	RECT rcClient;
 	GetClientRect(&rcClient);
 
-	DrawTextW(ps.hdc, L"Hello", 5, &rcClient, DT_CENTER);
+	NONCLIENTMETRICSW ncm = { 0 };
+	ncm.cbSize = sizeof(ncm);
+	SystemParametersInfoW(
+		SPI_GETNONCLIENTMETRICS,
+		sizeof(ncm),
+		&ncm,
+		NULL
+	);
+	HFONT hfMsg = CreateFontIndirectW(&ncm.lfMessageFont);
+	HFONT hfOld = (HFONT)SelectObject(ps.hdc, hfMsg);
 
+	DrawTextW(ps.hdc, L"Hello", 5, &rcClient, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+	SelectObject(ps.hdc, hfOld);
+	DeleteObject(hfMsg);
 	EndPaint(&ps);
 
 	bHandled = true;

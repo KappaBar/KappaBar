@@ -22,7 +22,7 @@ extern "C" int WINAPI wWinMain(
 	HWND hWndMainWindow = mainWindow->Create(
 		NULL,
 		NULL,
-		L"Hi",
+		L"Test",
 		WS_OVERLAPPEDWINDOW,
 		NULL,
 		nullptr,
