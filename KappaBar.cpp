@@ -28,8 +28,8 @@ extern "C" int WINAPI wWinMain(
 		nullptr,
 		NULL
 	);
-	ShowWindow(hWndMainWindow, SW_SHOW);
-	UpdateWindow(hWndMainWindow);
+	mainWindow->ShowWindow(SW_SHOW);
+	mainWindow->UpdateWindow();
 
 	messageLoop.Run();
 

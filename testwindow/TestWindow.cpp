@@ -16,3 +16,10 @@ LRESULT CTestWindow::OnPaint(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHan
 	bHandled = true;
 	return 0;
 }
+
+LRESULT CTestWindow::OnDestroy(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled)
+{
+	PostQuitMessage(0);
+	bHandled = true;
+	return 0;
+}
