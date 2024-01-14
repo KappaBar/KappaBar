@@ -8,6 +8,8 @@
 #define PCH_H
 
 // add headers that you want to pre-compile here
+#include <windows.h>
 #include "framework.h"
+#include <atlapp.h>
 
 #endif //PCH_H

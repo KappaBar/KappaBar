@@ -1,30 +1,38 @@
-// KappaBar.cpp : Implementation of WinMain
-
-
 #include "pch.h"
 #include "framework.h"
 #include "resource.h"
 #include "KappaBar_i.h"
 
+#include "testwindow/TestWindow.h"
 
-using namespace ATL;
+CAppModule g_appModule;
 
-
-class CKappaBarModule : public ATL::CAtlExeModuleT< CKappaBarModule >
+// Insertion point
+extern "C" int WINAPI wWinMain(
+		HINSTANCE hInstance,
+		HINSTANCE hPrevInstance,
+		LPTSTR lpCmdLine, 
+		int nShowCmd
+)
 {
-public :
-	DECLARE_LIBID(LIBID_KappaBarLib)
-	DECLARE_REGISTRY_APPID_RESOURCEID(IDR_KAPPABAR, "{5a79b3c9-dd2b-453d-9a24-e33d82c56570}")
-};
+	g_appModule.Init(NULL, hInstance);
 
-CKappaBarModule _AtlModule;
+	CTestWindow *mainWindow = new CTestWindow;
+	CMessageLoop messageLoop;
+	HWND hWndMainWindow = mainWindow->Create(
+		NULL,
+		NULL,
+		L"Hi",
+		WS_OVERLAPPEDWINDOW,
+		NULL,
+		nullptr,
+		NULL
+	);
+	ShowWindow(hWndMainWindow, SW_SHOW);
+	UpdateWindow(hWndMainWindow);
 
+	messageLoop.Run();
 
-
-//
-extern "C" int WINAPI _tWinMain(HINSTANCE /*hInstance*/, HINSTANCE /*hPrevInstance*/,
-								LPTSTR /*lpCmdLine*/, int nShowCmd)
-{
-	return _AtlModule.WinMain(nShowCmd);
+	g_appModule.Term();
+	return 0;
 }
-
