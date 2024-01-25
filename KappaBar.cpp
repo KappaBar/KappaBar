@@ -2,6 +2,7 @@
 #include "framework.h"
 #include "resource.h"
 #include "KappaBar_i.h"
+#include <uxtheme.h>
 
 #include "testwindow/TestWindow.h"
 
@@ -16,6 +17,7 @@ extern "C" int WINAPI wWinMain(
 )
 {
 	g_appModule.Init(NULL, hInstance);
+	BufferedPaintInit();
 
 	CTestWindow *mainWindow = new CTestWindow;
 	CMessageLoop messageLoop;
@@ -33,6 +35,7 @@ extern "C" int WINAPI wWinMain(
 
 	messageLoop.Run();
 
+	BufferedPaintUnInit();
 	g_appModule.Term();
 	return 0;
 }

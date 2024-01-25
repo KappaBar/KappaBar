@@ -46,6 +46,15 @@
     <ClInclude Include="testwindow\TestWindow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="taskbar\superbar\RadialGradient.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="taskbar\TaskbarWindow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="util\debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KappaBar.cpp">
@@ -66,6 +75,12 @@
     <ClCompile Include="testwindow\TestWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="taskbar\superbar\RadialGradient.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="taskbar\TaskbarWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="KappaBar.rc">
@@ -78,6 +93,7 @@
     </None>
     <None Include=".gitignore" />
     <None Include="README.md" />
+    <None Include="testwindow\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="KappaBar.idl">

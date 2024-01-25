@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -223,10 +223,13 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="KappaBar_i.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="taskbar\superbar\RadialGradient.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="taskbar\TaskbarWindow.h" />
     <ClInclude Include="taskbar\Taskbar.h" />
     <ClInclude Include="testwindow\TestWindow.h" />
+    <ClInclude Include="util\debug.h" />
     <ClInclude Include="util\ThemeManager.h" />
     <ClInclude Include="util\util.h" />
   </ItemGroup>
@@ -252,6 +255,8 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="taskbar\superbar\RadialGradient.cpp" />
+    <ClCompile Include="taskbar\TaskbarWindow.cpp" />
     <ClCompile Include="taskbar\Taskbar.cpp" />
     <ClCompile Include="testwindow\TestWindow.cpp" />
     <ClCompile Include="util\ThemeManager.cpp" />
@@ -263,6 +268,7 @@
     <None Include=".gitignore" />
     <None Include="KappaBar.rgs" />
     <None Include="README.md" />
+    <None Include="testwindow\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="KappaBar.idl" />
