@@ -55,6 +55,9 @@
     <ClInclude Include="util\debug.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="taskbar\GlobalManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KappaBar.cpp">
@@ -79,6 +82,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="taskbar\TaskbarWindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="taskbar\GlobalManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

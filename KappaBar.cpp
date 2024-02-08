@@ -4,6 +4,7 @@
 #include "KappaBar_i.h"
 #include <uxtheme.h>
 
+#include "taskbar/GlobalManager.h"
 #include "testwindow/TestWindow.h"
 
 CAppModule g_appModule;
@@ -18,6 +19,8 @@ extern "C" int WINAPI wWinMain(
 {
 	g_appModule.Init(NULL, hInstance);
 	BufferedPaintInit();
+
+	InitializeTaskbarGlobalState();
 
 	CTestWindow *mainWindow = new CTestWindow;
 	CMessageLoop messageLoop;
