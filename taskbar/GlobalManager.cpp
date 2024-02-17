@@ -1,3 +1,4 @@
+#include "pch.h"
 #include "GlobalManager.h"
 
 bool g_taskbarInitialized = false;

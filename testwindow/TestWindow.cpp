@@ -62,7 +62,13 @@ LRESULT CTestWindow::OnPaint(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHan
 	HFONT hfMsg = CreateFontIndirectW(&ncm.lfMessageFont);
 	HFONT hfOld = (HFONT)SelectObject(ps.hdc, hfMsg);
 
-	DrawTextW(ps.hdc, L"Hello", 5, &rcClient, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+	BITMAP bmp = { 0 };
+	HGDIOBJ obj = GetCurrentObject(ps.hdc, OBJ_BITMAP);
+	GetObjectW(obj, sizeof(BITMAP), &bmp);
+
+	WCHAR fuck[256];
+	wsprintfW(fuck, L"w: %u, h: %u", bmp.bmWidth, bmp.bmHeight);
+	DrawTextW(ps.hdc, fuck, -1, &rcClient, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
 	RECT a = { 50, 105, rcClient.right, rcClient.bottom };
 	DrawTextW(ps.hdc, L"Superbar radial gradient test:", 31, &a, DT_SINGLELINE);
