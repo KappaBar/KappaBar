@@ -20,7 +20,7 @@ extern "C" int WINAPI wWinMain(
 	g_appModule.Init(NULL, hInstance);
 	BufferedPaintInit();
 
-	InitializeTaskbarGlobalState();
+	KappaBar::Taskbar::InitializeTaskbarGlobalState();
 
 	CTestWindow *mainWindow = new CTestWindow;
 	CMessageLoop messageLoop;

@@ -1,5 +1,8 @@
 #include "pch.h"
 #include "Taskbar.h"
+#include "util/debug.h"
+
+using namespace KappaBar::Taskbar;
 
 CTaskbar::CTaskbar(HWND owner)
 	: m_hWndOwner(owner)
@@ -39,4 +42,89 @@ HRESULT CTaskbar::Initialize()
 	// https://stackoverflow.com/questions/28697559/registered-window-message-taskbarbuttoncreated-not-received
 
 	return S_OK;
+}
+
+LRESULT CTaskbar::HandleTaskbarMessage(HWND hWndTaskbar, UINT uMsg, WPARAM wParam, LPARAM lParam, OUT bool *shouldContinue)
+{
+	switch (uMsg)
+	{
+		case HSHELL_WINDOWCREATED:
+		{
+			KappabarDebugPrint(L"HandleTaskbarMessage: window created");
+			break;
+		}
+
+		case HSHELL_WINDOWDESTROYED:
+		{
+			KappabarDebugPrint(L"HandleTaskbarMessage: window replaced");
+			break;
+		}
+
+		case HSHELL_WINDOWREPLACING:
+		{
+			KappabarDebugPrint(L"HandleTaskbarMessage: window replacing");
+			break;
+		}
+
+		case HSHELL_WINDOWREPLACED:
+		{
+			KappabarDebugPrint(L"HandleTaskbarMessage: window replaced");
+			break;
+		}
+
+		case HSHELL_WINDOWACTIVATED:
+		{
+			KappabarDebugPrint(L"HandleTaskbarMessage: window activated");
+			break;
+		}
+
+		case HSHELL_RUDEAPPACTIVATED:
+		{
+			KappabarDebugPrint(L"HandleTaskbarMessage: rude app activated");
+			break;
+		}
+
+		case HSHELL_FLASH:
+		{
+			KappabarDebugPrint(L"HandleTaskbarMessage: flash event");
+			break;
+		}
+
+		case HSHELL_ACTIVATESHELLWINDOW:
+		{
+			KappabarDebugPrint(L"HandleTaskbarMessage: shell window activated");
+			break;
+		}
+
+		case HSHELL_ENDTASK:
+		{
+			KappabarDebugPrint(L"HandleTaskbarMessage: task ended");
+			break;
+		}
+
+		case HSHELL_GETMINRECT:
+		{
+			KappabarDebugPrint(L"HandleTaskbarMessage: getting minimize rect");
+			break;
+		}
+
+		case HSHELL_REDRAW:
+		{
+			KappabarDebugPrint(L"HandleTaskbarMessage: redraw command");
+			break;
+		}
+
+		case HSHELL_TASKMAN:
+		{
+			KappabarDebugPrint(L"HandleTaskbarMessage: task manager command");
+			break;
+		}
+	}
+
+	if (shouldContinue)
+	{
+		*shouldContinue = true;
+	}
+
+	return 0;
 }

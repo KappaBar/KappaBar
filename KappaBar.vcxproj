@@ -228,15 +228,30 @@
     <ClInclude Include="KappaBar_i.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="taskbar\GlobalManager.h" />
+    <ClInclude Include="taskbar\messages.h" />
     <ClInclude Include="taskbar\superbar\RadialGradient.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="taskbar\TaskbarWindow.h" />
     <ClInclude Include="taskbar\Taskbar.h" />
+    <ClInclude Include="taskbar\tasks\WindowTask.h" />
     <ClInclude Include="testwindow\TestWindow.h" />
     <ClInclude Include="util\debug.h" />
     <ClInclude Include="util\ThemeManager.h" />
     <ClInclude Include="util\util.h" />
+    <ClInclude Include="virtualdesktop\clsids.h" />
+    <ClInclude Include="virtualdesktop\ProxyBase.h" />
+    <ClInclude Include="virtualdesktop\VirtualDesktop.h" />
+    <ClInclude Include="virtualdesktop\VirtualDesktopNotification.h" />
+    <ClInclude Include="virtualdesktop\VirtualDesktopNotificationService.h" />
+    <ClInclude Include="virtualdesktop\ComProxy.h" />
+    <ClInclude Include="virtualdesktop\win10interface\IApplicationView.h" />
+    <ClInclude Include="virtualdesktop\win10interface\IVirtualDesktop.h" />
+    <ClInclude Include="virtualdesktop\win10interface\IVirtualDesktopNotification.h" />
+    <ClInclude Include="virtualdesktop\win10interface\IVirtualDesktopNotificationService.h" />
+    <ClInclude Include="virtualdesktop\win11interface\IApplicationView.h" />
+    <ClInclude Include="virtualdesktop\win11interface\IVirtualDesktop.h" />
+    <ClInclude Include="virtualdesktop\win11interface\IVirtualDesktopNotification.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KappaBar.cpp" />
@@ -264,6 +279,8 @@
     <ClCompile Include="taskbar\superbar\RadialGradient.cpp" />
     <ClCompile Include="taskbar\TaskbarWindow.cpp" />
     <ClCompile Include="taskbar\Taskbar.cpp" />
+    <ClCompile Include="taskbar\tasks\WindowTask.cpp" />
+    <ClCompile Include="taskbar\tasks\Enumerator.cpp" />
     <ClCompile Include="testwindow\TestWindow.cpp" />
     <ClCompile Include="util\ThemeManager.cpp" />
   </ItemGroup>
@@ -275,6 +292,7 @@
     <None Include="KappaBar.rgs" />
     <None Include="README.md" />
     <None Include="testwindow\README.md" />
+    <None Include="virtualdesktop\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="KappaBar.idl" />

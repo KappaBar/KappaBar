@@ -1,6 +1,11 @@
 #include "pch.h"
 #include "GlobalManager.h"
 
+namespace KappaBar
+{
+namespace Taskbar
+{
+
 bool g_taskbarInitialized = false;
 UINT g_msgSHELLHOOK = 0;
 UINT g_msgTASKBARCREATED = 0;
@@ -13,7 +18,10 @@ bool InitializeTaskbarGlobalState()
 	g_msgSHELLHOOK = RegisterWindowMessageW(L"SHELLHOOK");
 	g_msgTASKBARCREATED = RegisterWindowMessageW(L"TaskbarCreated");
 	g_msgTASKBARBUTTONCREATED = RegisterWindowMessageW(L"TaskbarButtonCreated");
-	
+
 	g_taskbarInitialized = g_msgSHELLHOOK && g_msgTASKBARCREATED && g_msgTASKBARBUTTONCREATED;
 	return g_taskbarInitialized;
 }
+
+} // namespace Taskbar
+} // namespace KappaBar

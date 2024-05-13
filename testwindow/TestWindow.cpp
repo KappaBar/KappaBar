@@ -2,6 +2,8 @@
 #include "TestWindow.h"
 #include "taskbar/superbar/RadialGradient.h"
 
+using KappaBar::Taskbar::Superbar::CRadialGradient;
+
 LRESULT CTestWindow::OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHandled)
 {
 	m_colorPickerButton = CreateWindowExW(

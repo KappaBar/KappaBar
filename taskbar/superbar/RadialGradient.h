@@ -3,6 +3,13 @@
 #include "pch.h"
 #include <uxtheme.h>
 
+namespace KappaBar
+{
+namespace Taskbar
+{
+namespace Superbar
+{
+
 class CRadialGradient
 {
 public:
@@ -43,3 +50,7 @@ public:
 private:
 	void DoDrawGradient(RGBQUAD *pRgbQuad, const BYTE colorsArr[], int colorIndex, int width, int height, int iteration, int offsetX, int offsetY);
 };
+
+} // namespace Superbar
+} // namespace Taskbar
+} // namespace KappaBar

@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "RadialGradient.h"
 
+using namespace KappaBar::Taskbar::Superbar;
+
 constexpr double PI = 3.1415927;
 constexpr int GRADIENT_STEPS_NUM = 100;
 

@@ -58,6 +58,51 @@
     <ClInclude Include="taskbar\GlobalManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="taskbar\tasks\WindowTask.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="virtualdesktop\win10interface\IVirtualDesktopNotificationService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="virtualdesktop\win10interface\IVirtualDesktopNotification.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="virtualdesktop\win10interface\IVirtualDesktop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="virtualdesktop\win10interface\IApplicationView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="virtualdesktop\VirtualDesktopNotificationService.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="virtualdesktop\ComProxy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="virtualdesktop\clsids.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="virtualdesktop\VirtualDesktopNotification.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="virtualdesktop\win11interface\IVirtualDesktopNotification.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="virtualdesktop\win11interface\IVirtualDesktop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="virtualdesktop\win11interface\IApplicationView.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="virtualdesktop\VirtualDesktop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="virtualdesktop\ProxyBase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="taskbar\messages.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="KappaBar.cpp">
@@ -87,6 +132,12 @@
     <ClCompile Include="taskbar\GlobalManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="taskbar\tasks\Enumerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="taskbar\tasks\WindowTask.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="KappaBar.rc">
@@ -100,6 +151,7 @@
     <None Include=".gitignore" />
     <None Include="README.md" />
     <None Include="testwindow\README.md" />
+    <None Include="virtualdesktop\README.md" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="KappaBar.idl">
