@@ -4,6 +4,66 @@
 
 using namespace KappaBar::Taskbar;
 
+#pragma region "private:"
+/**
+  * In the future, this method should be updated to check for and avoid KappaBar's
+  * taskbar window. Since this doesn't exist right now, this is fine.
+  */
+HWND CTaskbar::_GetNativeTaskbarHandle()
+{
+	return FindWindowW(L"Shell_TrayWnd", NULL);
+}
+
+/* See HideNativeTaskbar and ShowNativeTaskbar */
+HRESULT CTaskbar::_SetTaskbarVisibility(int visibility)
+{
+	HWND hTaskbar = _GetNativeTaskbarHandle();
+	if (hTaskbar)
+	{
+		if (!SetWindowPos(
+			hTaskbar,
+			HWND_BOTTOM,
+			0, 0, 0, 0,
+			visibility | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE
+		))
+		{
+			return GetLastError();
+		}
+
+		/* The start button isn't owned by the taskbar, presumably a leftover
+		   from the Windows 7 orb start button style.*/
+		HWND hStartButton = FindWindowExW(NULL, NULL, (LPCWSTR)0xC017, NULL);
+		if (hStartButton)
+		{
+			if (!SetWindowPos(
+				hTaskbar,
+				HWND_BOTTOM,
+				0, 0, 0, 0,
+				visibility | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE
+			))
+			{
+				return GetLastError();
+			}
+		}
+	}
+
+	return S_OK;
+}
+
+/* See HideNativeTaskbar and ShowNativeTaskbar */
+void CTaskbar::_SetTaskbarState(int state)
+{
+	APPBARDATA abd = { sizeof(APPBARDATA) };
+	abd.hWnd = _GetNativeTaskbarHandle();
+	abd.lParam = state;
+	
+	/* SHAppBarMessage always returns TRUE for ABM_SETSTATE, so there's no way to
+	   tell if this succeeded or not. */
+	SHAppBarMessage(ABM_SETSTATE, &abd);
+}
+#pragma endregion // "private:"
+
+#pragma region "public:"
 CTaskbar::CTaskbar(HWND owner)
 	: m_hWndOwner(owner)
 {}
@@ -128,3 +188,27 @@ LRESULT CTaskbar::HandleTaskbarMessage(HWND hWndTaskbar, UINT uMsg, WPARAM wPara
 
 	return 0;
 }
+
+/* These two functions only handle the main taskbar right now.
+   Should probably be reworked in the future. */
+
+HRESULT CTaskbar::HideNativeTaskbar()
+{
+	if (!m_taskbarInitialState)
+	{
+		APPBARDATA abd = { sizeof(APPBARDATA) };
+		abd.hWnd = _GetNativeTaskbarHandle();
+		m_taskbarInitialState = SHAppBarMessage(
+			ABM_GETSTATE, &abd
+		);
+	}
+	_SetTaskbarState(ABS_AUTOHIDE);
+	return _SetTaskbarVisibility(SWP_HIDEWINDOW);
+}
+
+HRESULT CTaskbar::ShowNativeTaskbar()
+{
+	_SetTaskbarState(m_taskbarInitialState);
+	return _SetTaskbarVisibility(SWP_SHOWWINDOW);
+}
+#pragma endregion // "public:"

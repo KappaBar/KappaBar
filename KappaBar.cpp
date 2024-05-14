@@ -5,6 +5,7 @@
 #include <uxtheme.h>
 
 #include "taskbar/GlobalManager.h"
+#include "taskbar/Taskbar.h"
 #include "testwindow/TestWindow.h"
 
 CAppModule g_appModule;
@@ -21,6 +22,9 @@ extern "C" int WINAPI wWinMain(
 	BufferedPaintInit();
 
 	KappaBar::Taskbar::InitializeTaskbarGlobalState();
+	
+	KappaBar::Taskbar::CTaskbar taskbar(NULL);
+	taskbar.HideNativeTaskbar();
 
 	CTestWindow *mainWindow = new CTestWindow;
 	CMessageLoop messageLoop;
@@ -40,5 +44,7 @@ extern "C" int WINAPI wWinMain(
 
 	BufferedPaintUnInit();
 	g_appModule.Term();
+
+	taskbar.ShowNativeTaskbar();
 	return 0;
 }
