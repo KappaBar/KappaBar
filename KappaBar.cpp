@@ -8,6 +8,8 @@
 #include "taskbar/Taskbar.h"
 #include "testwindow/TestWindow.h"
 
+const WCHAR szMutexName[] = L"KappaBar";
+
 CAppModule g_appModule;
 
 // Insertion point
@@ -18,6 +20,15 @@ extern "C" int WINAPI wWinMain(
 		int nShowCmd
 )
 {
+	/* Disallow multiple instances */
+	HANDLE hMutex = CreateMutexW(NULL, TRUE, szMutexName);
+	if (GetLastError() == ERROR_ALREADY_EXISTS)
+	{
+		/* TODO: localize */
+		MessageBoxW(NULL, L"KappaBar is already running", L"KappaBar", MB_ICONERROR);
+		return 1;
+	}
+
 	g_appModule.Init(NULL, hInstance);
 	BufferedPaintInit();
 
@@ -46,5 +57,10 @@ extern "C" int WINAPI wWinMain(
 	g_appModule.Term();
 
 	taskbar.ShowNativeTaskbar();
+
+	/* Allow new instance again */
+	ReleaseMutex(hMutex);
+	CloseHandle(hMutex);
+
 	return 0;
 }
