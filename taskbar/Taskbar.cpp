@@ -27,7 +27,7 @@ HRESULT CTaskbar::_SetTaskbarVisibility(int visibility)
 			visibility | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE
 		))
 		{
-			return GetLastError();
+			return HRESULT_FROM_WIN32(GetLastError());
 		}
 
 		/* The start button isn't owned by the taskbar, presumably a leftover
@@ -42,12 +42,57 @@ HRESULT CTaskbar::_SetTaskbarVisibility(int visibility)
 				visibility | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE
 			))
 			{
-				return GetLastError();
+				return HRESULT_FROM_WIN32(GetLastError());
 			}
 		}
+
+		_SetSecondaryTaskbarVisibility(visibility);
 	}
 
 	return S_OK;
+}
+
+HRESULT CTaskbar::_SetSecondaryTaskbarVisibility(int visibility)
+{
+	HWND hWndSecondaryTaskbar = nullptr;
+
+	while (hWndSecondaryTaskbar = FindWindowExW(nullptr, hWndSecondaryTaskbar, L"Shell_SecondaryTrayWnd", nullptr))
+	{
+		if (!SetWindowPos(
+			hWndSecondaryTaskbar,
+			HWND_BOTTOM,
+			0, 0, 0, 0,
+			visibility | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE
+		))
+		{
+			return HRESULT_FROM_WIN32(GetLastError());
+		}
+
+		// Like ManagedShell, we don't set the visibility of the start button on secondary
+		// taskbars. I'm not sure why this design decision was made, but I didn't want to
+		// look into it either.
+	}
+
+	return S_OK;
+}
+
+/*
+ * Hack for testing purposes because we don't have a HWND yet. 
+ */
+static CTaskbar *g_latestInstance = nullptr;
+
+void CALLBACK CTaskbar::s_EnsureTaskbarHiddenTimerProc(HWND hWnd, UINT uMsg, UINT_PTR uEventId, DWORD dwTime)
+{
+	// ManagedShell duplicates this procedure rather than calling into these functions, but I don't
+	// know if there is any significance to this.
+	// https://github.com/cairoshell/ManagedShell/blob/master/src/ManagedShell.AppBar/ExplorerHelper.cs#L164-L191
+	// Also, it would probably be a good idea to rewrite this behaviour to cache the known HWNDs instead of
+	// searching over and over again, but it should be fine for now.
+	if (g_latestInstance)
+	{
+		g_latestInstance->_SetTaskbarVisibility(SWP_HIDEWINDOW);
+		g_latestInstance->_SetSecondaryTaskbarVisibility(SWP_HIDEWINDOW);
+	}
 }
 
 /* See HideNativeTaskbar and ShowNativeTaskbar */
@@ -194,6 +239,8 @@ LRESULT CTaskbar::HandleTaskbarMessage(HWND hWndTaskbar, UINT uMsg, WPARAM wPara
 
 HRESULT CTaskbar::HideNativeTaskbar()
 {
+	HRESULT hr = E_FAIL;
+
 	if (!m_taskbarInitialState)
 	{
 		APPBARDATA abd = { sizeof(APPBARDATA) };
@@ -203,12 +250,35 @@ HRESULT CTaskbar::HideNativeTaskbar()
 		);
 	}
 	_SetTaskbarState(ABS_AUTOHIDE);
-	return _SetTaskbarVisibility(SWP_HIDEWINDOW);
+	hr = _SetTaskbarVisibility(SWP_HIDEWINDOW);
+
+	// As stated above, the weird code involving a global reference to the instance
+	// can be resolved once we have access to a proper object that can store this
+	// information, such as a window. Because we're testing with no window, global
+	// state is used instead.
+	g_latestInstance = this;
+	SetTimer(
+		/* hWnd: */ nullptr,
+		/* nIDEvent: */ (UINT_PTR)this,
+		/* uElapse: */ 100,
+		/* lpTimerFunc: */ s_EnsureTaskbarHiddenTimerProc
+	);
+
+	return hr;
 }
 
 HRESULT CTaskbar::ShowNativeTaskbar()
 {
+	HRESULT hr = E_FAIL;
+
 	_SetTaskbarState(m_taskbarInitialState);
-	return _SetTaskbarVisibility(SWP_SHOWWINDOW);
+	hr = _SetTaskbarVisibility(SWP_SHOWWINDOW);
+
+	KillTimer(
+		/* hWnd: */ nullptr,
+		/* uIDEvent: */ (UINT_PTR)this
+	);
+
+	return hr;
 }
 #pragma endregion // "public:"

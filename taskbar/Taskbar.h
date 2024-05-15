@@ -16,6 +16,8 @@ private:
 	HWND _GetNativeTaskbarHandle();
 
 	HRESULT _SetTaskbarVisibility(int visibility);
+	HRESULT _SetSecondaryTaskbarVisibility(int visibility);
+	static void CALLBACK s_EnsureTaskbarHiddenTimerProc(HWND hWnd, UINT uMsg, UINT_PTR uEventId, DWORD dwTime);
 	void _SetTaskbarState(int state);
 
 public:
