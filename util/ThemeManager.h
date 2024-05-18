@@ -10,6 +10,11 @@
 #include <windows.h>
 #include <uxtheme.h>
 
+namespace KappaBar
+{
+namespace Util
+{
+
 typedef struct _UXTHEMEFILE
 {
 	char header[7]; // must be "thmfile"
@@ -20,15 +25,15 @@ typedef struct _UXTHEMEFILE
 	char end[3]; // must be "end"
 } UXTHEMEFILE, *LPUXTHEMEFILE;
 
-typedef HRESULT (WINAPI *GetThemeDefaults_t)(
+typedef HRESULT(WINAPI *GetThemeDefaults_t)(
 	LPCWSTR pszThemeFileName,
 	LPWSTR  pszColorName,
 	DWORD   dwColorNameLen,
 	LPWSTR  pszSizeName,
 	DWORD   dwSizeNameLen
-);
+	);
 
-typedef HRESULT (WINAPI *LoaderLoadTheme_t)(
+typedef HRESULT(WINAPI *LoaderLoadTheme_t)(
 	HANDLE      hThemeFile,
 	HINSTANCE   hThemeLibrary,
 	LPCWSTR     pszThemeFileName,
@@ -45,14 +50,14 @@ typedef HRESULT (WINAPI *LoaderLoadTheme_t)(
 	int         a,
 	int         b,
 	BOOL        fEmulateGlobal
-);
+	);
 
-typedef HTHEME (WINAPI *OpenThemeDataFromFile_t)(
+typedef HTHEME(WINAPI *OpenThemeDataFromFile_t)(
 	LPUXTHEMEFILE lpThemeFile,
 	HWND        hWnd,
 	LPCWSTR     pszClassList,
 	DWORD       dwFlags
-);
+	);
 
 class CThemeManager
 {
@@ -104,9 +109,12 @@ private:
 
 public:
 	CThemeManager(LPCWSTR pszThemePath);
-	
+
 	HRESULT Initialize(void);
 	HTHEME OpenThemeData(HWND hWnd, LPCWSTR pszClassList, DWORD dwFlags);
 	HRESULT SwitchTheme(LPCWSTR pszThemePath);
 	DWORD GetThemePath(LPWSTR pszOut, DWORD cchMax);
 };
+
+} // namespace Util
+} // namespace KappaBar

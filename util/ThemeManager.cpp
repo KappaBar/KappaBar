@@ -2,6 +2,8 @@
 #include "thememanager.h"
 #include "util.h"
 
+using namespace KappaBar::Util;
+
 /* Set the current theme. This does not load the theme. */
 void CThemeManager::_SetTheme(LPCWSTR pszThemePath)
 {
