@@ -9,6 +9,8 @@ class CTestWindow : public ATL::CWindowImpl<CTestWindow>
 	COLORREF m_color;
 	COLORREF m_highlightColor;
 
+	WCHAR m_versionString[1024];
+
 public:
 	DECLARE_WND_CLASS(L"KappaBar_TestWindow")
 

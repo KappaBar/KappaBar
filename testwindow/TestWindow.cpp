@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "TestWindow.h"
+#include "Version.h"
 #include "taskbar/superbar/RadialGradient.h"
 
 using KappaBar::Taskbar::Superbar::CRadialGradient;
@@ -22,6 +23,20 @@ LRESULT CTestWindow::OnCreate(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHa
 	);
 
 	UpdateGradientColor(RGB(255, 106, 0));
+
+	WCHAR szDate[256]    = { 0 };
+	WCHAR szVersion[256] = { 0 };
+	
+	KappaBar::Util::GetBuildDateFull(szDate, 256);
+	KappaBar::Util::GetVersion(szVersion, 256);
+
+	wsprintfW(
+		m_versionString,
+		L"KappaBar %s (build %d, %s)",
+		szVersion,
+		KappaBar::Util::GetBuildNumber(),
+		szDate
+	);
 
 	bHandled = true;
 	return 0;
@@ -68,9 +83,7 @@ LRESULT CTestWindow::OnPaint(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL &bHan
 	HGDIOBJ obj = GetCurrentObject(ps.hdc, OBJ_BITMAP);
 	GetObjectW(obj, sizeof(BITMAP), &bmp);
 
-	WCHAR fuck[256];
-	wsprintfW(fuck, L"w: %u, h: %u", bmp.bmWidth, bmp.bmHeight);
-	DrawTextW(ps.hdc, fuck, -1, &rcClient, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+	DrawTextW(ps.hdc, m_versionString, -1, &rcClient, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
 	RECT a = { 50, 105, rcClient.right, rcClient.bottom };
 	DrawTextW(ps.hdc, L"Superbar radial gradient test:", 31, &a, DT_SINGLELINE);

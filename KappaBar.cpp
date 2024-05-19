@@ -2,6 +2,7 @@
 #include "framework.h"
 #include "resource.h"
 #include "KappaBar_i.h"
+#include "Version.h"
 #include <uxtheme.h>
 
 #include "taskbar/GlobalManager.h"
