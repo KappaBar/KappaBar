@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "Version.h"
 
-using namespace KappaBar;
-
 constexpr char *mon[12] =
 { "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" };
 
@@ -92,22 +90,30 @@ constexpr char *dateFull = __TIME__ " " __DATE__;
 constexpr char *epoch = "Jan 08 2024";
 constexpr int buildNumber = CalculateBuildNumber(date, epoch);
 
-int Util::GetBuildNumber()
+namespace KappaBar
 {
-	return buildNumber;
-}
+namespace Util
+{
 
-int Util::GetBuildDate(LPWSTR lpString, int cchMax)
-{
-	return mbstowcs_s(nullptr, lpString, cchMax, date, cchMax);
-}
+	int GetBuildNumber()
+	{
+		return buildNumber;
+	}
 
-int Util::GetBuildDateFull(LPWSTR lpString, int cchMax)
-{
-	return mbstowcs_s(nullptr, lpString, cchMax, dateFull, cchMax);
-}
+	int GetBuildDate(LPWSTR lpString, int cchMax)
+	{
+		return mbstowcs_s(nullptr, lpString, cchMax, date, cchMax);
+	}
 
-int Util::GetVersion(LPWSTR lpString, int cchMax)
-{
-	return mbstowcs_s(nullptr, lpString, cchMax, version, cchMax);
-}
+	int GetBuildDateFull(LPWSTR lpString, int cchMax)
+	{
+		return mbstowcs_s(nullptr, lpString, cchMax, dateFull, cchMax);
+	}
+
+	int GetVersion(LPWSTR lpString, int cchMax)
+	{
+		return mbstowcs_s(nullptr, lpString, cchMax, version, cchMax);
+	}
+
+} // namespace Util
+} // namespace KappaBar
